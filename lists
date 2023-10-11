@@ -314,6 +314,29 @@ class Solution:
             arr[i]//=n
 
 
+#choclates
+class Solution {
+    solve(a, b) {
+        // Swap a and b if a is greater than b
+        if(a>b){
+            [a, b] = [b, a];
+        }
+        let k=b-a; // Calculate the difference between a and b
+        let d= 1 +Math.sqrt(5); // Calculate the value of phi
+        d/=2; // Divide phi by 2
+        d*=k; // Multiply phi/2 with the difference between a and b
+        let temp=parseInt(d); // Convert d into an integer
+        // Check if temp is equal to a
+        if(temp===a){
+            // If temp is equal to a, return false
+            return false;
+        }
+        // Otherwise, return true
+        return true;
+    }
+}
+
+
 
 
 
