@@ -354,6 +354,35 @@ right=[4, 5, 7]
 print(maxAppear(left, right))
 
 
+#smallest missing number
+class Solution:
+    
+    #Function to find the smallest positive number missing from the array.
+    def missingNumber(self,arr,n):
+        positive_index = 0
+        for i in range(n):
+            if arr[i] <= 0:
+                arr[i], arr[positive_index] = arr[positive_index], arr[i]
+                positive_index += 1
+    
+        # Ignore non-positive integers
+        arr = arr[positive_index:]
+    
+        # Mark the presence of positive integers
+        for num in arr:
+            index = abs(num) - 1
+            if index < len(arr):
+                arr[index] = -abs(arr[index])
+    
+        # Find the first index with a positive value
+        for i in range(len(arr)):
+            if arr[i] > 0:
+                return i + 1
+    
+        # If all positive integers from 1 to len(arr) are present, return the next positive integer
+        return len(arr) + 1
+
+
 
 
 
