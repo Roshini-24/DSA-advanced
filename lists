@@ -385,6 +385,44 @@ class Solution:
 
 
 
+#divide and substract
+class Solution:
+    def divAndSub(self, N):
+        a=[0]*(N+1)
 
+        if(N == 1):
+            return "Arya";
+        if(N<5): 
+            return "Jon";
+     
+        for i in range(1,6):
+            a[i] = (i,1);
+    
+        for i in range(6,N+1):
+       
+            if (a[i//2] == 0):
+                a[i] = 1;
+            elif (a[i-2] == 0):
+                a[i] = 1;
+    
+            elif (a[i//3] == 0):
+                a[i] = 1;
+            elif (a[i-3] == 0):
+                a[i] =1;
+    
+            elif (a[i//4] == 0):
+                a[i] = 1;
+            elif (a[i-4] == 0):
+                a[i] = 1;
+    
+            elif (a[i//5] == 0):
+                a[i] = 1;
+            elif (a[i-5] == 0):
+                a[i] = 1;
+    
+        if (a[N] == 1):
+            return "Jon";
+        else:
+            return "Arya";
 
 
