@@ -160,3 +160,116 @@ k = 4
 print(maxsum(arr,k))
 
 
+#longest even odd
+def maxEvenOdd(arr, n):
+    res=1 
+    curr=1 
+    for i in range(1, n):
+        if((arr[i]%2==0 and arr[i-1]%2!=0) or (arr[i]%2!=0 and arr[i-1]%2==0)):
+            curr+=1
+            res=max(res, curr)
+        else:
+            curr=1 
+            
+    return res
+    
+n=6
+arr=[5, 10, 20, 6, 3, 8]
+print(maxEvenOdd(arr, n))
+
+
+#circular subarry
+def normalMaxSum(arr, n):
+    res=arr[0]
+    maxEnding=arr[0]
+    for i in range(1, n):
+        maxEnding=max(maxEnding+arr[i], arr[i])
+        res=max(maxEnding, res)
+    return res 
+
+
+def overallMaxSum(arr, n):
+    max_normal=normalMaxSum(arr, n)
+    if(max_normal<0):
+        return max_normal
+    
+    arr_sum=0
+    for i in range(0, n):
+        arr_sum+=arr[i]
+        arr[i]=-arr[i]
+    max_circular=arr_sum+normalMaxSum(arr, n)
+    
+    return max(max_circular, max_normal)
+    
+        
+    
+n=4
+arr=[5, -2, 3, 4]
+print(overallMaxSum(arr, n))
+
+
+
+#majority element
+def findMajority(arr, n):
+    res=0
+    count=1 
+    for i in range(1, n):
+        if(arr[res]==arr[i]):
+            count+=1 
+        else:
+            count-=1 
+        if(count==0):
+            res=i 
+            count=1 
+    
+    
+    count=0
+    for i in range(0, n):
+        if(arr[res]==arr[i]):
+            count+=1 
+    if(count<=n//2):
+        res=-1 
+    
+    return res
+    
+n=7
+arr=[8, 8, 6, 6, 6, 4, 6]
+print(findMajority(arr, n))
+
+
+#minimum consecutive flips
+def printGroups(arr, n):
+    for i in range(1, n):
+        if(arr[i]!=arr[i-1]):
+            if(arr[i]!=arr[0]):
+                print('From', i, 'to', end=' ')
+            else:
+                print(i-1)
+    if(arr[n-1]!=arr[0]):
+        print(n-1)
+    
+n=9
+arr=[0, 0, 1, 1, 0, 0, 1, 1, 0]
+print(printGroups(arr, n))
+
+
+#subarray with given sum
+def issubsum(arr,sum) :
+    s, curr = 0, 0
+    for i in range(len(arr)) :
+        curr += arr[i]
+        while (curr > sum) :
+            curr -= arr[s]
+            s += 1 
+        if (curr == sum) :
+            return True
+    return False
+    
+arr = [4, 8, 12, 5]
+sum = 17
+
+print(issubsum(arr, sum))
+
+
+
+
