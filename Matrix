@@ -140,5 +140,57 @@ def spiralTraversal(mat):
         right -= 1
 
 
+#searching
+def searchMatrix(mat, target):
+    R=len(mat)
+    C=len(mat[0])
+    # Start the search at the top-right corner of the matrix
+    row, col = 0, C - 1
+
+    while row < R and col >= 0:
+        if mat[row][col] == target:
+            print("Found at(",row,", ",col,")")
+            
+            return
+        elif mat[row][col] < target:
+            # Target is larger, move down
+            row += 1
+        else:
+            # Target is smaller, move left
+            col -= 1
+
+    # Target not found
+    print("Not Found")
+
+
+#median
+def median(matrix):
+    rows, cols = len(matrix), len(matrix[0])
+    lo, hi = matrix[0][0], matrix[0][-1]
+
+    # Find the minimum and maximum values in the matrix
+    for i in range(rows):
+        lo = min(lo, matrix[i][0])
+        hi = max(hi, matrix[i][-1])
+
+    # Calculate the target rank for the median
+    target_rank = (rows * cols + 1) // 2
+
+    while lo < hi:
+        mid = (lo + hi) // 2
+        count = 0
+
+        # Count the number of elements in the matrix that are less than or equal to the midpoint
+        for i in range(rows):
+            count += bisect(matrix[i], mid)
+
+        if count < target_rank:
+            lo = mid + 1
+        else:
+            hi = mid
+
+    return lo
+
+
 
 
