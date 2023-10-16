@@ -164,3 +164,104 @@ def inpair(arr,x) :
 arr = [2,5,8,12,30]
 x = 17 
 print(inpair(arr,x))
+
+
+
+# Median of Two Sorted Arrays
+
+def getmid(a1,a2) :
+    n1,n2 = len(a1),len(a2) 
+    b1,e1 = 0,n1
+    while(b1 <= e1) :
+        x = (b1 + e1) // 2 
+        y = ((n1 + n2 + 1)//2 - x)
+        mnr1 = float('inf') if x == n1 else a1[x]
+        mxl1 = float('-inf') if x == 0 else a1[x-1]
+        mnr2 = a2[y]
+        mxl2 = a2[y - 1]
+        if mxl1 <= mnr2 and mxl2 <= mnr1 :
+            if (n1+n2) % 2 == 0 :
+                return(max(mxl1,mxl2) + min(mnr1,mnr2))/2 
+            else :
+                return max(mxl1,mxl2)
+        elif mxl1 > mnr2 :
+            e1 = x - 1 
+        else :
+            b1 = x + 1 
+            
+            
+a1 = [18,20,30]
+a2 = [5,15,25,35,45]
+print(getmid(a1,a2))
+
+
+
+
+#Super Naive
+def repeat(arr, n):
+    slow=arr[0]
+    fast=arr[0]
+    slow=arr[slow]
+    fast=arr[arr[fast]]
+    while(slow!=fast):
+        slow=arr[slow]
+        fast=arr[arr[fast]]
+    slow=arr[0]
+    while(slow!=fast):
+        slow=arr[slow]
+        fast=arr[fast]
+    return slow
+
+  
+n=8             
+arr=[1, 3, 2, 4, 6, 5, 7, 3]
+print(repeat(arr, n))
+
+
+
+# Allocate Minimum Pages (Naive Method)
+
+
+def minpages(arr,n,k) :
+    if (k == 1) :
+        return sum(arr[0:n])
+    if (n == 1) :
+        return arr[0]
+    res = float('inf')
+    for i in range(1,n) :
+        res = min(res,max(minpages(arr,i,k-1),sum(arr[i:n])))
+    return res
+    
+    
+arr = [10,5,20]
+n = len(arr)
+k = 2 
+
+
+# Allocate Minimum pages (Binary Search)
+
+def isfeasible(arr,k,ans) :
+    req,s = 1,0
+    for i in range(len(arr)) :
+        if (s + arr[i]) > ans :
+            req += 1 
+            s = arr[i]
+        else :
+            s += arr[i]
+    return (req <= k)
+    
+def minpages(arr,k) :
+    n = len(arr)
+    s = sum(arr)
+    mx = max(arr)
+    low,high = mx,s
+    res = 0 
+    while low <= high :
+        mid = (low + high) // 2
+        if (isfeasible(arr,k,mid)) :
+            res = mid
+            high = mid - 1 
+        else :
+            low = mid + 1 
+    return res
+print(minpages(arr,n,k))
