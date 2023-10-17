@@ -1,0 +1,83 @@
+#tail elimination
+def hoarsePartition(arr, l, h):
+    pivot = arr[l]
+
+    i = l - 1
+    j = h + 1
+
+    while True:
+
+        i = i + 1
+        while arr[i] < pivot:
+            i = i + 1
+
+        j = j - 1
+        while arr[j] > pivot:
+            j = j - 1
+
+        if i >= j:
+            return j
+
+        arr[i], arr[j] = arr[j], arr[i]
+
+
+def qSort(arr, l, h):
+    while l < h:
+        p = hoarsePartition(arr, l, h)
+        qSort(arr, l, p)
+        l = p + 1
+
+
+arr = [8, 4, 7, 9, 3, 10, 5]
+
+qSort(arr, 0, 6)
+
+print(*arr)
+
+
+#kth sMALLEST ELEMNT
+def partition(arr, l, r):
+ 
+    x = arr[r]
+    i = l
+    for j in range(l, r):
+        if (arr[j] <= x):
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+    arr[i], arr[r] = arr[r], arr[i]
+    return i
+
+def kthsmallest(arr, k) :
+    l = 0 
+    r = len(arr) - 1 
+    while l <= r :
+        p = partition(arr,l,r) 
+        if p == k-1 :
+            return p 
+                
+        elif p > k-1 :
+            r = p - 1 
+                
+        else :
+            l = p + 1 
+    return -1
+
+arr = [10,4,5,8,6,26]
+k = 5 
+
+print(kthsmallest(arr, k))
+
+
+# Minimum difference in an array
+# Efficient Approach
+
+def mindiff(arr) :
+    res = arr[0]
+    arr.sort()
+    for i in range(1, len(arr)) :
+        for j in range(i) :
+            res = min(res,abs(arr[i]-arr[j]))
+    print(res)
+    
+arr = [5,3,8]
+mindiff(arr)
