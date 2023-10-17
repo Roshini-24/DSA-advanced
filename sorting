@@ -81,3 +81,88 @@ def mindiff(arr) :
     
 arr = [5,3,8]
 mindiff(arr)
+
+
+# Chocolate Distribution Problem
+# Efficient Approach
+
+def minDiff(arr,m) :
+    if (m == 0 or len(arr) == 0) :
+        return 0
+    if (len(arr)<m) :
+        return -1
+    arr.sort()
+    res = arr[m-1] - arr[0]
+    for i in range(1, len(arr)- m+1) :
+        res = min(res,abs(arr[i + m-1] - arr[i]))
+    print(res)
+    
+arr = [7,3,1,8,9,12,56]
+minDiff(arr,3)
+
+
+#SORTING OF 2 TYPES
+def sort(arr) :
+    i,j = -1,len(arr)
+    while True :
+        i += 1 
+        while arr[i] < 0 :
+            i += 1 
+        j -= 1 
+        while arr[j] >= 0 :
+            j -= 1 
+        if i >= j :
+            return
+        arr[i],arr[j] = arr[j],arr[i]
+        
+    return arr
+        
+arr = [-12,18,-10,15, -1, 20, -4]
+sort(arr)
+print( arr )
+
+
+
+# Sort an array with three types of elements
+temp = []
+def sortarr(arr) :
+    temp = []
+    for x in arr :
+        if x == 0 :
+            temp.append(x)
+    for x in arr :
+        if x == 1 :
+            temp.append(x)
+    for x in arr :
+        if x == 2 :
+            temp.append(x)
+    for i in range(len(arr)) :
+        arr[i] = temp[i]
+        
+    return temp
+    
+    
+arr = [0,1,1,2,0,1]
+A = sortarr(arr)
+print(A)
+
+
+# Merge overlapping intervals
+
+def mergeintervals(arr) :
+    arr.sort(key = lambda x : x[0])
+    res = 0
+    for i in range(1, len(arr)) :
+        if (arr[res][1] >= arr[i][0]) :
+            arr[res][1] = max(arr[res][1],arr[i][1])
+        else :
+            res = res + 1 
+            arr[res] = arr[i]
+    for i in range(res + 1) :
+        print(arr[i], end= " ")
+            
+arr = [[5,10],[3,15],[18,30],[2,7]]
+mergeintervals(arr)
+
+
+
