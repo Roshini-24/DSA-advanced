@@ -165,4 +165,137 @@ arr = [[5,10],[3,15],[18,30],[2,7]]
 mergeintervals(arr)
 
 
+# Meeting the maximum guests
+
+def maxguests(arr,dep) :
+    arr.sort()
+    dep.sort()
+    n = len(arr)
+    i,j = 1,0
+    curr, res = 1, 1 
+    while(i < n and j < n) :
+        if(arr[i] <= dep[j]) :
+            curr += 1 
+            i += 1 
+        else :
+            curr -= 1 
+            j += 1 
+        res = max(res, curr)
+    print(res)
+    
+    
+arr = [900, 600, 700]
+dep = [1000, 800, 730]
+maxguests(arr,dep)
+
+
+# Counting Sort 
+# Naive Approach
+
+def countingsort(arr,k) :
+    output = [0] * len(arr)
+    count = [0] * k
+    for x in arr :
+        count[x] += 1
+    
+    for i in range(1,k) :
+        count[i] += count[i - 1]
+    for x in reversed(arr) :
+        output[count[x] - 1] = x
+        count[x] -= 1 
+    for i in range(len(arr)) :
+        arr[i] = output[i]
+    
+    print(arr)
+    
+arr = [1,4,4,1,0,1]
+countingsort(arr,5)
+
+
+# Cycle sort
+
+def cyclesortdist(arr) :
+    w = 0
+    for cs in range(len(arr) - 1) :
+        item = arr[cs]
+        pos = cs
+        for i in range(cs+1, len(arr)) :
+            if arr[i] < item :
+                pos = pos + 1 
+        if pos == cs :
+            continue
+        
+        while item == arr[pos]:
+            pos += 1
+        arr[pos], item = item, arr[pos]
+        w += 1
+        
+        while pos != cs :
+            pos = cs 
+            for i in range(cs+1, len(arr)) :
+                if arr[i] < item :
+                    pos += 1
+            while item == arr[pos]:
+                pos += 1
+            arr[pos], item = item, arr[pos]
+            w += 1
+    
+    
+    
+arr = [20,40,30,10,50]
+n = len(arr)
+cyclesortdist(arr)
+
+for i in range(0, n) :
+    print(arr[i], end = ' ')
+
+
+# Radix sort
+def countingsort(arr,exp) :
+    output = [0] * len(arr)
+    count = [0] * 10
+    for i in range(0, len(arr)) :
+        index = (arr[i]//exp)%10
+        count[index] += 1 
+    for i in range(1,10) :
+        count[i] += count[i - 1]
+    
+    i = len(arr) - 1 
+    while i >= 0 :
+        index = (arr[i]//exp)%10
+        output[count[index]-1] = arr[i]
+        count[index] -= 1
+        i -= 1 
+    for i in range(0, len(arr)) :
+        arr[i] = output[i]
+def radixsort(arr) : 
+    mx = max(arr)
+    exp = 1 
+    while mx/exp > 0 :
+        countingsort(arr,exp)
+        exp *= 10
+
+#BUCKET SORT
+def bucketSort(arr, k):
+    rs= max(arr)+1 
+    bkt=[[] for i in range(k)]
+    for x in arr:
+        i=(k*x)//rs
+        bkt[i].append(x)
+    
+    for i in range(k):
+        bkt[i].sort()
+    idx=0
+    for i in range(k):
+        for j in range(len(bkt[i])):
+            arr[idx]=bkt[i][j]
+            idx+=1 
+            
+    for i in range(len(arr)):
+        print(arr[i], end=' ')
+        
+arr=[30, 40, 10, 80, 5, 12, 70]
+k=4
+bucketSort(arr, k)
+
 
