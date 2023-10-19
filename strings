@@ -1,0 +1,32 @@
+#pattern search
+from collections import Counter
+
+def printNbyK(arr, k):
+    n=len(arr)
+    c=Counter(arr)
+    for x in c:
+        if(c[x]> n//k):
+            print(x)
+
+    
+arr= [ 10, 10, 20, 30, 20, 10, 10]
+k=2
+print(printNbyK(arr, k))
+
+
+#Function to count the number of substrings that start and end with 1.
+    def binarySubstring(self,n,s):
+        count = 0
+        for i in range(n):
+            if  s[i]  == '1':
+                count +=1
+                
+        return count *(count-1)//2
+
+
+#Function to locate the occurrence of the string x in the string s.
+def strstr(s,x):
+    pos=-1
+    pos = s.find(x)
+    
+    return pos
