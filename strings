@@ -277,3 +277,55 @@ def printNumber(s,n):
         result.reverse()
         
         return int("".join(map(str, result)))
+
+
+
+
+def isIsogram(self,s):
+        if len(set(s))==len(s):
+            return True
+        return False
+
+class Solution:
+    def printMinIndexChar(self, S, patt):
+		char_index = {}  # Dictionary to store the indexes of characters in 'patt'
+
+    # Initialize the dictionary with maximum index values
+        for char in patt:
+            char_index[char] = float('inf')
+    
+        for i in range(len(S)):
+            char = S[i]
+            if char in char_index:
+                char_index[char] = min(char_index[char], i)
+    
+        min_index = float('inf')
+        min_char = '$'
+    
+        for char in patt:
+            if char_index[char] < min_index:
+                min_index = char_index[char]
+                min_char = char
+    
+        return min_charclass Solution:
+    def printMinIndexChar(self, S, patt):
+		char_index = {}  # Dictionary to store the indexes of characters in 'patt'
+
+    # Initialize the dictionary with maximum index values
+        for char in patt:
+            char_index[char] = float('inf')
+    
+        for i in range(len(S)):
+            char = S[i]
+            if char in char_index:
+                char_index[char] = min(char_index[char], i)
+    
+        min_index = float('inf')
+        min_char = '$'
+    
+        for char in patt:
+            if char_index[char] < min_index:
+                min_index = char_index[char]
+                min_char = char
+    
+        return min_char
