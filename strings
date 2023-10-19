@@ -30,3 +30,79 @@ def strstr(s,x):
     pos = s.find(x)
     
     return pos
+
+
+#Function to check if the given pattern exists in the given string or not.
+    def search(self,pat,txt):
+        m = len(pat)
+        n = len(txt) 
+        for i in range(n-m+1) :
+            j = 0
+            while j < m :
+                if pat[j] != txt[i + j] :
+                    break
+                j = j + 1 
+            if j == m :
+                return True
+        return False
+
+
+#Function to check if two strings are isomorphic.
+    def areIsomorphic(self,str1,str2):
+        if len(str1) != len(str2):
+            return False
+
+    # Create dictionaries to store the character mappings for both strings.
+        char_map_str1 = {}
+        char_map_str2 = {}
+    
+        for i in range(len(str1)):
+            char1 = str1[i]
+            char2 = str2[i]
+    
+            # Check if the character in str1 is already mapped to a different character in str2.
+            if char1 in char_map_str1:
+                if char_map_str1[char1] != char2:
+                    return False
+            else:
+                char_map_str1[char1] = char2
+    
+            # Check if the character in str2 is already mapped to a different character in str1.
+            if char2 in char_map_str2:
+                if char_map_str2[char2] != char1:
+                    return False
+            else:
+                char_map_str2[char2] = char1
+    
+        return True
+
+
+#Function to check if a string can be obtained by rotating
+    #another string by exactly 2 places.
+    def isRotated(self,str1,str2):
+        if len(str1)!=len(str2):
+            return False
+        n=len(str1)
+        l1=str1[2:n]+str1[0:2]
+        l2=str1[n-2:n]+str1[0:n-2]
+        
+        if l1==str2 or l2==str2:
+            return True
+        else:
+            return False
+
+#Function to find the maximum occurring character in a string.
+    def getMaxOccurringChar(self,s):
+        #code here
+        l=list(s)
+        l1=[]
+        l2=[]
+        d=Counter(l)
+        for i in d.values():
+            l1.append(i)
+        m=max(l1)
+        for i in d:
+            if(d[i]==m):
+                l2.append(i)
+        l2.sort()
+        return l2[0]
