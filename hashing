@@ -162,3 +162,58 @@ def largestZeroSubarray(arr):
 n=7
 arr=[1, 0, 1, 1, 1, 0, 0]
 print(largestZeroSubarray(arr))
+
+
+#subsequence
+def findLongest(arr):
+    s=set()
+    res=0 
+    for i in arr:
+        s.add(i)
+    for i in arr:
+        if (i-1) not in s:
+            curr=1 
+            while(curr+i) in s:
+                curr+=1 
+            res=max(res, curr)
+    return res 
+    
+
+arr= [ 1, 9, 3, 4, 2, 10, 13]
+print(findLongest(arr))
+
+
+#didtenct element in window
+from collections import Counter
+def printDistinct(arr, k):
+    mp=Counter(arr[0:k])
+    print(len(mp))
+    for i in range(k, len(arr)):
+        x=arr[i-k]
+        mp[x]-=1 
+        mp[arr[i]]+=1 
+        if(mp[x]==0):
+            del mp[x]
+        print(len(mp))
+        
+        
+
+arr= [ 10, 20, 10, 30, 40]
+k=4
+print(printDistinct(arr, k))
+
+
+#morethan n/k
+from collections import Counter
+
+def printNbyK(arr, k):
+    n=len(arr)
+    c=Counter(arr)
+    for x in c:
+        if(c[x]> n//k):
+            print(x)
+
+    
+arr= [ 10, 10, 20, 30, 20, 10, 10]
+k=2
+print(printNbyK(arr, k))
