@@ -329,3 +329,46 @@ class Solution:
                 min_char = char
     
         return min_char
+
+
+
+ #Function to find repeated character whose first appearance is leftmost.
+    def repeatingCharacter(self,S):
+        char_count = {}  # Dictionary to store character frequencies and their first appearances
+    
+        for i in range(len(S)):
+            if S[i] in char_count:
+                char_count[S[i]] += 1
+            else:
+                char_count[S[i]] = 1
+    
+        # Iterate through the string again to find the first leftmost repeated character
+        for i in range(len(S)):
+            if char_count[S[i]] > 1:
+                return i
+    
+        # If no repeated character is found, return None or any other appropriate value
+        return -1
+
+
+#Function to calculate sum of all numbers present in a string.
+    def findSum(self,s):
+        temp = "0"
+        Sum = 0
+      
+        #iterating over the string.
+        for ch in s:
+      
+            #if current character is digit, we store it in a temporary string.
+            if (ch.isdigit()):
+                temp += ch
+      
+            else:
+                #incrementing final sum by number stored in temporary string.
+                Sum += int(temp)
+                #making the temporary string empty again.
+                temp = "0"
+      
+        #adding any number if it's present in temporary
+    	#string to final sum and returning it.
+        return Sum + int(temp)
