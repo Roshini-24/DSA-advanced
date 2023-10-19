@@ -106,3 +106,46 @@ def strstr(s,x):
                 l2.append(i)
         l2.sort()
         return l2[0]
+
+
+#Function to find the first non-repeating character in a string.
+    def nonrepeatingCharacter(self,s):
+        
+        #using hash table to store count of each character.
+        for i in s:
+            if(s.count(i)==1):
+                return i
+        return "$"
+
+
+#Function to reverse words in a given string.
+    def reverseWords(self,s):
+        result = ""
+        words = []
+        curr_word = ""
+        
+        #initially reversing individual words of the given string one by one.
+        for i in range(len(s)):
+            
+            #if '.' is encountered, we store the word in list.
+            if(s[i] == '.'):
+                words.append(curr_word)
+                curr_word = ""
+                
+            #else adding the characters in current word in such
+            #a way that original words get reversed.
+            else:
+                curr_word += s[i]
+        
+        #storing the last remaining word in list.
+        words.append(curr_word)
+        
+        #now reversing the whole modified string by adding all 
+        #the elements of list in a single string in reverse order.
+        for i in range(len(words) - 1, -1, -1):
+            result += words[i]
+            if(i):
+                result += "."
+    
+        #returning the result.
+        return result
