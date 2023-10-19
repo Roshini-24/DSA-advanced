@@ -1,0 +1,45 @@
+def addSameSize(h1,h2,carry):
+    if not h1:
+        return
+    
+    sm=0
+    
+    #allocating memory for sum node of current two nodes.
+    result=Node(sm)
+    
+    #recursively adding remaining nodes and getting the carry.
+    result.next=addSameSize(h1.next,h2.next,carry)
+    
+    #adding digits of current nodes and propagating carry.
+    sm=h1.data+h2.data+carry.data
+    carry.data=sm//10
+    sm=sm%10
+    
+    #assigning the sum to current node of resultant list.
+    result.data=sm
+    
+    return result
+    
+    
+
+#This function is called after the smaller list is added to the sublist of 
+#bigger list of same size. Once the right sublist is added, the carry
+#must be added to left side of larger list to get the final result.
+def addCarryToRemaining(h1,curr,result,carry):
+    
+    if h1!=curr:
+        #calling function recursively to add carry.
+        addCarryToRemaining(h1.next,curr,result,carry)
+        
+        sm=h1.data+carry.data
+        carry.data=sm//10
+        sm=sm%10
+        
+        #adding this node to the front of the resultant list.
+        result.head=push(result.head,sm)
+    
+    return
+
+
+
+
