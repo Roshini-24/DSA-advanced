@@ -190,3 +190,146 @@ def getIntersection(head1,head2):
         curr=curr.next
     return -1
 
+
+
+def segregateEvenOdd():
+
+	global head
+	end = head
+	prev = None
+	curr = head
+
+	while (end.next != None):
+		end = end.next
+
+	new_end = end
+
+	while (curr.data % 2 !=0 and curr != end):
+		
+		new_end.next = curr
+		curr = curr.next
+		new_end.next.next = None
+		new_end = new_end.next
+		
+	if (curr.data % 2 == 0):
+		
+		head = curr
+
+		while (curr != end):
+			
+			if (curr.data % 2 == 0):
+				
+				prev = curr
+				curr = curr.next
+				
+			else:
+				
+				prev.next = curr.next
+
+				curr.next = None
+
+				new_end.next = curr
+
+				new_end = curr
+
+				curr = prev.next
+			
+	else:
+		prev = curr
+
+	if (new_end != end and end.data % 2 != 0):
+		
+		prev.next = end.next
+		end.next = None
+		new_end.next = end
+
+
+def pairwiseSwap(head):
+    if head == None or head.next== None:
+        return head
+    curr = head.next.next
+    prev = head
+    head = head.next
+    head.next = prev
+    while curr!= None and curr.next!= None:
+        prev.next = curr.next
+        prev = curr
+        next = curr.next.next
+        curr.next.next = curr
+        curr = next
+    prev.next = curr
+    return head
+
+
+def clone(head):
+    d={None : None}
+    curr = head
+    while curr!= None :
+        d[curr] = Node(curr.data)
+        curr = curr.next
+    curr = head
+    while curr != None :
+        d[curr].next=d[curr.next]
+        d[curr].random = d[curr.random]
+        curr = curr.next
+    return d[head]
+
+
+
+def sortedMerge(a, b):
+    if(a == None):
+        return b
+    if(b == None):
+        return a
+    head = None
+    tail = None
+    if(a.data <= b.data):
+        head = tail = a
+        a = a.next
+    else:
+        head = tail = b
+        b = b.next
+        
+    while(a != None and b != None):
+        if(a.data <= b.data):
+            tail.next = a
+            tail = a
+            a = a.next
+        else:
+            tail.next = b
+            tail = b
+            b = b.next
+
+    if(a == None):
+        tail.next = b
+    else:
+        tail.next = a
+    return head
+
+
+#palindrome
+def reverseList(head):
+    prev = None
+    while head:
+        curr = head
+        head = head.next
+        curr.next = prev
+        prev = curr
+    return prev
+    
+def isPalindrome(head):
+    if(head == None):
+        return True
+    slow,fast = head,head
+    while(fast.next!=None and fast.next.next!=None):
+        slow=slow.next
+        fast=fast.next.next
+    rev = reverseList(head)
+    printList(rev)
+    curr = head
+    while(rev!=head):
+        if(rev.data!= curr.data):
+            return False
+        curr = curr.next
+        rev = rev.next
+    return True
