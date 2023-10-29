@@ -1,1 +1,61 @@
+def push(x):
+    global queue_1
+    global queue_2
+    queue_1.append(x)
+    while queue_2:
+        queue_1.append(queue_2.pop(0))
+    queue_1,queue_2=queue_2,queue_1
+        
+def pop():
+    global queue_1
+    global queue_2
+    if not queue_2:
+        return -1
+    return queue_2.pop(0)
 
+
+#Function to push an element in queue by using 2 stacks.
+def Push(x,stack1,stack2):
+    '''
+    x: value to push
+    stack1: list
+    stack2: list
+    '''
+    stack1.append(x)
+
+#Function to pop an element from queue by using 2 stacks.
+def Pop(stack1,stack2):
+    
+    '''
+    stack1: list
+    stack2: list
+    '''
+    if not stack1:
+        return -1
+    while stack1:
+        stack2.append(stack1.pop())
+    x = stack2.pop()
+    while stack2:
+        stack1.append(stack2.pop())
+    return x
+
+
+   #Function to reverse the queue.
+    def rev(self, q):
+        #using a stack to reverse the queue.
+        stack=[]
+        
+        #pushing elements from queue into stack and removing them from queue.
+        while(q.qsize()!=0):
+            x=q.get()
+            stack.append(x)
+            
+            
+        #now pushing elements back into the queue from stack and removing them 
+        #from stack. queue gets reversed as stack follows last in first out.
+        while(len(stack)!=0):
+            x=stack.pop()
+            q.put(x)
+            
+        #returning reversed queue.
+        return q
