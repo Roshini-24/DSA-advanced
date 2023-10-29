@@ -59,3 +59,123 @@ def Pop(stack1,stack2):
             
         #returning reversed queue.
         return q
+
+
+
+#Function to generate binary numbers from 1 to N using a queue.
+def generate(N):
+    q=deque()
+    l=[]
+   # q.append("0")
+    q.append("1")
+    for i in range(N):
+        curr = q.popleft()
+        l.append(curr)
+        q.append(curr+"0")
+        q.append(curr+"1")
+    return l
+
+
+
+from collections import deque
+#Function to reverse first k elements of a queue.
+def modifyQueue(q,k):
+    if not q or len(q) < k:
+        return 
+    
+    stk = []
+    q2 = deque()
+    
+    for i in range(k):
+        stk.append(q.pop(0))
+        
+    while q:
+        q2.append(q.pop(0))
+    
+    # elements storing back into queue
+    while stk:
+        q.append(stk.pop())
+    
+    while q2:
+        q.append(q2.popleft())
+    
+    return q
+
+
+  #Function to find maximum of each subarray of size k.
+    def max_of_subarrays(self,arr,n,k):
+        
+        #code here
+        l=[]
+        dq=deque()
+        for i in range(k):
+            while(dq and arr[i]>=arr[dq[-1]]):
+                dq.pop()
+            dq.append(i)
+        l.append(arr[dq[0]])
+        for i in range(k, n):
+            while(dq and dq[0]<=i-k):
+                dq.popleft()
+            while(dq and arr[i]>=arr[dq[-1]]):
+                dq.pop()
+            dq.append(i)
+            l.append(arr[dq[0]])
+        return l
+
+
+
+def left_Rotate_Deq_ByK(deq,k):
+    if not deq or len(deq)<k:
+        return 
+    i=0
+    while i!=k:
+        deq.append(deq.popleft())
+        i+=1
+    
+ 
+#Function to rotate deque by k places in clockwise direction.   
+def right_Rotate_Deq_ByK(deq,k):
+    if not deq or len(deq)<k:
+        return 
+    i=0
+    while i!=k:
+        deq.appendleft(deq.pop())
+        i+=1
+
+
+#Function to find starting point where the truck can start to get through
+    #the complete circle without exhausting its petrol in between.
+    def tour(self,lis, n):
+        
+        if n==1:
+            return 0
+            
+        #considering first petrol pump as a starting point.
+        start = 0
+        end = 1
+        cur_pos = lis[start][0] - lis[start][1]
+        
+        #we run a loop while all petrol pumps are not visited and we have 
+        #reached first petrol pump again with 0 or more petrol.
+        while(end != start or cur_pos < 0):
+            
+            #if current amount of petrol in truck becomes less than 0,
+            #then remove the starting petrol pump from tour.
+            while(cur_pos < 0 and start != end):
+                
+                #removing starting petrol pump and changing starting point.
+                cur_pos -= (lis[start][0] - lis[start][1])
+                start=(start+1)%n
+                
+                #if 0 is being considered as start again, then there 
+                #is no possible solution.
+                if start==0:
+                    return -1
+                    
+            #adding a petrol pump to current tour.
+            cur_pos+=(lis[end][0] - lis[end][1])
+            end=(end+1)%n
+            
+        #returning starting point.
+        return start
+
