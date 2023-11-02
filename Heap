@@ -39,4 +39,59 @@ class Solution:
         return -max_heap[0]
 
 
+import heapq
+class Solution:
+    #Function to return k largest elements from an array.
+    def kLargest(self,li,n,k):
+        heap = []
+        for value in li:
+            #pushing the current value in Heap.
+            heapq.heappush(heap, value)
+            #if size of Heap becomes greater than k, we pop the element.
+            if len(heap) > k:
+                heapq.heappop(heap)
+        
+        ans = []
+        
+        #while heap is not empty, we store the top element in list and pop it.
+        while len(heap) > 0:
+            ans.append(heapq.heappop(heap))
+            
+        #reversing the list and returning it.
+        ans.reverse()
+        return ans
 
+
+
+import heapq
+
+class Solution:
+    
+    def kthLargest(self, k, arr, n):
+        # initial answer list with -1 for each element
+        ans = ["-1"]*len(arr)
+        
+        # initializing an empty heap
+        heap = []
+        
+        # variable to keep track of index 
+        i = 0 
+
+        # iterating over each element in the array
+        for x in arr :
+            # if heap size is less than k, push the element into the heap
+            if len(heap) < k :
+                heapq.heappush(heap,x)
+            
+            # if current element is greater than the minimum element in heap,
+            # replace the minimum element with current element
+            elif x > heap[0] :
+                heapq.heapreplace(heap,x)
+            
+            # if heap has reached the size of k, update the answer list with 
+            # the minimum element in the heap
+            if len(heap) >= k :
+                ans[i] = str(heap[0])
+            i+=1
+        
+        return ans
