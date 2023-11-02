@@ -93,5 +93,27 @@ class Solution:
             if len(heap) >= k :
                 ans[i] = str(heap[0])
             i+=1
+
+
+
+from collections import Counter
+class Solution:
+    
+    #Function to return the sum of frequencies of k numbers
+    #with most occurrences in an array.
+    def kMostFrequent(self,a,n,k) :
+        # code here
+        # 1st Appoach
+        arr=Counter(a).most_common(n)
+        p=arr
+       
+        summ=0
+        for i in range(k):
+            summ=summ+p[i][1]
+        return (summ)
+
+
+
+
         
         return ans
