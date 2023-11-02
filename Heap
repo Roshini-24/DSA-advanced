@@ -152,4 +152,15 @@ class Solution:
             index+=1
 
 
+class Solution:
+    #Function to merge k sorted arrays.
+    def mergeKArrays(self, arr, K):
+        mergedArr= []
+        for i in arr:
+            mergedArr.extend(i)
+        mergedArr.sort()
+        return mergedArr
+
+
+
 
