@@ -1,0 +1,79 @@
+import bisect 
+def countSmallerRight(nums,n):
+    counts = []
+    done = []
+    s=set()
+    for num in nums[::-1]:
+        idx=bisect.bisect_left(done, num)
+        counts.append(idx)
+        if num not in s:
+            s.add(num)
+            bisect.insort(done, num)
+    return max(counts)
+
+
+
+class Solution:
+    res = []
+    def printNearNodesUtil(self,root,l,h,res):
+        
+        # base case
+        if root is None:
+            return 
+        
+        #if starting range is less than data at current node, we call 
+        #the function recursively for the left subtree.
+        self.printNearNodesUtil(root.left,l,h,res)
+        
+        #if data at current node is within the range given, we store 
+        #the data at current node in the output list.
+        if(root.data>=l and root.data<=h):
+            res.append (root.data)
+        
+        #if ending range is more than data at current node, we call 
+        #the function recursively for the right subtree.
+        self.printNearNodesUtil(root.right,l,h,res)
+     
+    #Function to return a list of BST elements in a given range.  
+    def printNearNodes(self, root, l, h):
+        
+        global res
+        res = []
+        self.printNearNodesUtil (root, l, h, res)
+        #returning the output list.
+        return res
+
+
+
+
+class Node:
+
+    def __init__(self, data=0):
+        self.data = data
+        self.left = None
+        self.right = None
+
+#Function that constructs BST from its preorder traversal.
+def post_order(pre, size) -> Node:
+    #code here
+    # 1st Approach
+    root=Node(pre[0])
+
+    def fun(root,n):
+        if root==None:
+            root=Node(n)
+            return root
+
+        if n>root.data:
+            root.right=fun(root.right,n)
+        if n<root.data:
+            root.left=fun(root.left,n)
+        return root
+
+    for i in range(1,size):
+        root=fun(root,pre[i])
+    return root
+    #code here
+
+
+
