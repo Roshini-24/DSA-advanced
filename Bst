@@ -221,3 +221,72 @@ def insert(root,a,n,i):
             rightok=True if not node.right else ok(node.right,node.data,right)
             return leftok and rightok
         return ok(root)
+
+
+#Function to find the least absolute difference between any node
+    #value of the BST and the given integer.
+    def inn(self,root,arr):
+        if root:
+            self.inn(root.left,arr)
+            arr.append(root.data)
+            self.inn(root.right,arr)
+        return arr
+    def minDiff(self,root, K):
+        # code here
+        arr=[]
+        arr=self.inn(root,arr)
+        x=[]
+        for i in arr:
+            x.append(abs(i-K))
+        x.sort()
+        return x[0]
+
+
+def verticalOrder(self, root): 
+        #Your code here
+        if root is None: return []
+        q=[[root,0]]
+        ans,level=[],{}
+        while len(q)!=0:
+            rn,hd=q.pop(0)
+            if hd in level:
+                level[hd].append(rn.data)
+            else:
+                level[hd]=[rn.data]
+                
+            if rn.left is not None:
+                q.append([rn.left,hd-1])
+                
+            if rn.right is not None:
+                q.append([rn.right,hd+1])
+                
+        
+        for i in sorted(level.keys()):
+            ans.extend(level[i])
+    
+        return ans
+
+
+#Function to fix a given BST where two nodes are swapped.  
+class Solution:
+    def correctBST(self, root):
+    # code here
+        l1=[]
+        inorder(root,l1)
+        l2=[i.data for i in l1]
+        l2.sort()
+        p,q=None,None
+        for i in range(len(l1)):
+            if l2[i]!=l1[i].data:
+                if not p:
+                    p=l1[i]
+                else:
+                    q=l1[i]
+        p.data,q.data=q.data,p.data
+        return root
+def inorder(root,res):
+    if not root:
+        return
+    inorder(root.left,res)
+    res.append(root)
+    inorder(root.right,res)
