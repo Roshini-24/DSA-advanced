@@ -17,3 +17,26 @@ class Solution:
                 heapq.heappush(min_heap, num)
     
         return min_heap[0]
+
+
+import heapq 
+class Solution:
+    #Function to find the kth smallest element in the array.
+    def kthSmallest(self,arr,n,k):
+        if k <= 0 or k > len(arr):
+            return None
+    
+        # Create a max-heap with the first k elements
+        max_heap = [-num for num in arr[:k]]
+        heapq.heapify(max_heap)
+    
+        # Process the remaining elements in the array
+        for num in arr[k:]:
+            if -num > max_heap[0]:  # Compare with the largest element in the heap
+                heapq.heappop(max_heap)
+                heapq.heappush(max_heap, -num)
+    
+        return -max_heap[0]
+
+
+
