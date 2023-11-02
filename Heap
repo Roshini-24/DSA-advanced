@@ -111,9 +111,27 @@ class Solution:
         for i in range(k):
             summ=summ+p[i][1]
         return (summ)
+ return ans
 
 
 
 
-        
-        return ans
+class Solution:
+    #Function to return the minimum cost of connecting the ropes.
+    def minCost(self,arr,n) :
+        min_heap=[]
+        for i in arr:
+            heapq.heappush(min_heap,i)
+            
+        heapq.heapify(min_heap)
+        total_cost=0
+        while len(min_heap) >= 2:
+            first=heapq.heappop(min_heap)
+            second=heapq.heappop(min_heap)
+            total_cost=total_cost+first+second
+            heapq.heappush(min_heap,first+second)
+        return total_cost
+        # code here
+
+
+
