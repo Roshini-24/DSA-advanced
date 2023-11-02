@@ -320,4 +320,23 @@ def inorder(root,res):
 
 
 
+#Function to check if any pair exists in BST whose sum is equal to given value.
+def findPair(root, X):
+    s = set()
+    
+    def ispairsum(root, X, s):
+        if root == None:
+            return False
+        if ispairsum(root.left, X, s):
+            return True
+        if X - root.key in s:
+            return True
+        else:
+            s.add(root.key)
+        return ispairsum(root.right, X, s)
+    
+    return ispairsum(root, X, s)
+
+
+
 
