@@ -162,5 +162,51 @@ class Solution:
         return mergedArr
 
 
+import heapq 
+
+class Solution :
+    def rearrangeString(self, S):
+        # Creating a dictionary to count the occurrences of each character in the string
+        count = {}
+        for c in S :
+            count[c]=0
+        
+        # Counting the occurrences of each character in the string
+        for c in S :
+            count[c]+=1
+        
+        # Creating a heap and storing the characters with their negative counts in the heap
+        heap = []
+        for (key,value) in count.items() :
+            heap.append([-value,key])
+        
+        # Converting the list into a min-heap
+        heapq.heapify(heap)
+        
+        # Initializing a variable to keep track of the previous character and its count
+        prev = [0,'#']
+        
+        # Initializing an empty string to store the rearranged string
+        ans = ""
+        
+        # Repeatedly extracting the character with the highest count from the heap and appending it to the result string
+        while len(heap) != 0:
+            key2 = heapq.heappop(heap)
+            ans+=key2[1]
+            
+            # If the count of the previous character is still negative, push it back into the heap
+            if -prev[0] > 0 :
+                heapq.heappush(heap,prev)
+            key2[0]+=1
+            prev = key2
+
+        # Checking if the rearranged string has the same length as the input string
+        if len(ans) == len(S):
+            return ans;
+        else : 
+            return "-1";
+
+
+
 
 
