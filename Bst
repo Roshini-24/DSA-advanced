@@ -338,5 +338,42 @@ def findPair(root, X):
     return ispairsum(root, X, s)
 
 
-
+from collections import deque
+class Solution:
+    def bottomView(self, root):
+        if (root == None):
+    		return
+    	ans=[]
+    	hd = 0
+    	
+    	min_hd, max_hd = 0, 0
+    	
+    	hd_dict = dict()
+    
+    	q = deque()
+    
+    	root.hd = hd
+    	q.append(root)
+    
+    	while q:
+    		curr_node = q.popleft()
+    		
+    		hd = curr_node.hd
+    		
+    		min_hd = min(min_hd, hd)
+    		max_hd = max(max_hd, hd)
+    
+    		hd_dict[hd] = curr_node.data
+    
+    		if curr_node.left:
+    			curr_node.left.hd = hd - 1
+    			q.append(curr_node.left)
+    
+    		if curr_node.right:
+    			curr_node.right.hd = hd + 1
+    			q.append(curr_node.right)
+    
+    	for i in range(min_hd, max_hd+1):
+    		ans.append(hd_dict[i])
+    	return ans
 
