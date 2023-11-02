@@ -134,4 +134,22 @@ class Solution:
         # code here
 
 
+import heapq
+class Solution:
+    def nearlySorted (self, arr, n, k):
+        
+        pq = arr[:k+1]
+        heapq.heapify(pq)
+        
+        index = 0
+        for i in range(k+1,n):
+            arr[index]= heapq.heappop(pq)
+            index+=1
+            heapq.heappush(pq,arr[i])
+        
+        while pq: 
+            arr[index] = heapq.heappop(pq)
+            index+=1
+
+
 
