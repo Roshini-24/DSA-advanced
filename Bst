@@ -377,3 +377,30 @@ class Solution:
     		ans.append(hd_dict[i])
     	return ans
 
+#Function to count number of nodes in BST that lie in the given range.
+class Solution:
+    def getCount(self,root,l,h):
+        c=[0]
+        self.printNearNodesUtil(root, l, h, c)
+        #returning the output list.
+        return c[0]
+
+
+    def printNearNodesUtil(self,root,l,h,res):
+        
+        # base case
+        if root is None:
+            return 
+        
+        #if starting range is less than data at current node, we call 
+        #the function recursively for the left subtree.
+        self.printNearNodesUtil(root.left,l,h,res)
+        
+        #if data at current node is within the range given, we store 
+        #the data at current node in the output list.
+        if(root.data>=l and root.data<=h):
+            res[0]+=1
+        
+        #if ending range is more than data at current node, we call 
+        #the function recursively for the right subtree.
+        self.printNearNodesUtil(root.right,l,h,res)
