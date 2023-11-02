@@ -290,3 +290,34 @@ def inorder(root,res):
     inorder(root.left,res)
     res.append(root)
     inorder(root.right,res)
+
+
+
+
+
+#Function to find the nodes that are common in both BST.
+    def traverseAndCollect(self, node, tree_type):
+        if not node:
+            return
+       
+        self.traverseAndCollect(node.left, tree_type)
+       
+        if not tree_type:
+            self.temp1.add(node.data)
+        else:
+            if node.data in self.temp1:
+                self.res.append(node.data)
+       
+        self.traverseAndCollect(node.right, tree_type)
+   
+    def findCommon(self, root1, root2):
+        self.temp1, self.res = set(), []
+       
+        self.traverseAndCollect(root1, 0)
+        self.traverseAndCollect(root2, 1)
+       
+        return self.res
+
+
+
+
