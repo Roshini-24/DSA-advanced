@@ -1,0 +1,27 @@
+#Function to insert string into TRIE.    
+def insert(root,key):
+    
+    for x in key:
+        
+        i=ord(x) - ord("a")
+        if root.children[i] is None:
+            root.children[i] = TrieNode()
+        root=root.children[i]
+    root.isEndOfWord=True
+        
+
+#Function to use TRIE data structure and search the given string.
+def search(root, key):
+    
+    for x in key:
+        
+        i=ord(x)- ord('a')
+        if root.children[i] is None:
+            return False
+            
+        root=root.children[i]
+        
+    return root.isEndOfWord
+
+
+
