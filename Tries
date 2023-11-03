@@ -25,3 +25,74 @@ def search(root, key):
 
 
 
+ #Function to find most frequent word in an array of strings.
+    def mostFrequentWord(self,arr,n):
+        dic = {}
+        mx = 0
+        c_dic = {}
+        for i in range(n):
+            if arr[i] not in dic:
+                dic[arr[i]] = 1
+                if dic[arr[i]] >= mx:
+                    mx = dic[arr[i]]
+                    ans = arr[i]
+                c_dic[arr[i]] = i
+            else:
+                dic[arr[i]] += 1
+                if dic[arr[i]] >= mx:
+                    mx = dic[arr[i]]
+                    ans = arr[i]
+        mx_ = 0
+        for key, val in dic.items():
+            if val == mx:
+                if c_dic[key] > mx_:
+                    mx_ = c_dic[key]
+                    ans = key
+        return ans
+
+
+
+ 
+    #Function to return maximum XOR value.
+    def maxSubarrayXOR(self, arr, n):
+        INT_SIZE = 32  # Assuming integer is 32-bit
+        
+        root = self.TrieNode()
+        self.insert(root, 0)
+        
+        maxXOR = float('-inf')
+        preXOR = 0
+        
+        for num in arr:
+            preXOR ^= num
+            self.insert(root, preXOR)
+            maxXOR = max(maxXOR, self.queryMaxXOR(root, preXOR))
+        
+        return maxXOR
+    
+    class TrieNode:
+        def __init__(self):
+            self.children = [None, None]
+    
+    def insert(self, root, num):
+        node = root
+        for i in range(31, -1, -1):
+            bit = (num >> i) & 1
+            if not node.children[bit]:
+                node.children[bit] = self.TrieNode()
+            node = node.children[bit]
+    
+    def queryMaxXOR(self, root, num):
+        node = root
+        xor = 0
+        for i in range(31, -1, -1):
+            bit = (num >> i) & 1
+            desiredBit = 1 - bit
+            if node.children[desiredBit]:
+                xor |= (1 << i)
+                node = node.children[desiredBit]
+            else:
+                node = node.children[bit]
+        return xor
+
+
