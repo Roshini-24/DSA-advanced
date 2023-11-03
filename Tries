@@ -96,3 +96,46 @@ def search(root, key):
         return xor
 
 
+#renaming station codes
+    def check(self,lst, n):
+        #code here
+        root = {"count": 0}
+        def insert_and_get(s):
+            node = root
+            r = ""
+            done = False
+            for c in s:
+                if not done:
+                    r += c
+                if node.get(c) is None:
+                    done = True
+                    node[c] = {"count": 0}
+                node = node[c]
+            node["count"] += 1
+            if node["count"] > 1:
+                r = r + " " + str(node["count"])
+            return r
+        for s in lst:
+            print(insert_and_get(s))
+
+
+#Function to print all words in the CamelCase dictionary 
+    #that matches with a given pattern.
+    def findAllWords(self, dict,pattern):
+        m={}
+        d={}
+        for i in dict:
+            code=""
+            for j in i:
+                if ord(j)>=65 and ord(j)<=90:
+                    code+=j
+                    if code in d.keys():
+                        d[code].append(i)
+                    else:
+                        d[code]=[i]
+            m[i]=code
+        if pattern not in d.keys():
+            print("No match found",end=" ")
+        else:
+            for i in sorted(d[pattern],key=lambda x:(m[x],x)):
+                print(i,end=" ")
