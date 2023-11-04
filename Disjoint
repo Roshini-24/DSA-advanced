@@ -1,0 +1,16 @@
+# Find and Union Operations on Disjoint Sets
+
+n = 5 
+parent = [i for i in range(n)]
+
+def find(x) :
+    if parent[x] == x :
+        return x 
+    return find(parent[x])
+    
+def union(x,y) :
+    x_rep = find(x)
+    y_rep = find(y)
+    if (x_rep == y_rep) :
+        return 
+    parent[y_rep] = x_rep
