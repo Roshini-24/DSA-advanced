@@ -61,3 +61,32 @@
 
 
 
+#Function to find out the number of ways we can place a black and a white
+#Knight on this chessboard such that they cannot attack each other.
+def numOfWays(m,n):
+    
+    #specifying the directions to check in i.e 8 directions.
+    x_off = [-2,-2,-1, 1, 2, 2, 1, -1]
+    y_off = [-1, 1, 2, 2, 1,-1, -2, -2]
+    MOD = 1000000007
+
+    #variable to maintain number of positions which are not feasible.
+    ret = 0
+
+    #iterating for complete matrix.
+    for i in range(m):
+        for j in range(n):
+            for k in range(8):
+                
+                x = i + x_off[k]
+                y = j + y_off[k]
+                
+                #checking if the attack position is within bounds.
+                if x>=0 and x<m and y>=0 and y<n :
+                    #if in bounds then it is not feasible so we increment.
+                    ret+=1 
+    
+    #total possible combinations of 2 knights.
+    total = ((m*n)*(m*n-1))%MOD 
+    #returning total feasible combinations.
+    return (total +MOD - ret)%MOD 
