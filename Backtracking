@@ -294,3 +294,31 @@ def graphColoring(graph, k, V):
         return False
 
 
+
+
+    #Function to find all possible unique subsets.
+    def subsets(self,arr,n,pos,res,st):
+        if(pos>=n):
+            return 0
+        self.subsets(arr,n,pos+1,res,st)
+        dum = st+str(arr[pos])
+        res.add(dum)
+        self.subsets(arr,n,pos+1,res,dum)
+        return 0
+        
+        
+    def AllSubsets(self, arr, n):
+        arr.sort()
+        res = set()
+        st = ""
+        res.add(st)
+        self.subsets(arr,n,0,res,st)
+        res = list(res)
+        for i in range(len(res)):
+            l = list(res[i])
+            res[i] = l
+        res.sort()
+        return res
+
+
+
