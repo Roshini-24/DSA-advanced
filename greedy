@@ -1,0 +1,33 @@
+ #Function to find the maximum number of activities that can
+    #be performed by a single person.
+    def activitySelection(self,n,s,f):
+        
+        li=[]
+        for i in range(n):
+            k=[start[i], end[i]]
+            li.append(k)
+        li.sort(key=lambda x:x[1])
+        z=0
+        c=1
+        for j in range(1,n):
+            if li[j][0]>li[z][1]:
+                c+=1
+                z=j
+        return c
+
+
+#Function to find the maximum number of meetings that can
+    #be performed in a meeting room.
+    def maximumMeetings(self,n,start,end):
+        li=[]
+        for i in range(n):
+            k=[start[i], end[i]]
+            li.append(k)
+        li.sort(key=lambda x:x[1])
+        z=0
+        c=1
+        for j in range(1,n):
+            if li[j][0]>li[z][1]:
+                c+=1
+                z=j
+        return c
