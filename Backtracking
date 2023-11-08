@@ -90,3 +90,100 @@ def numOfWays(m,n):
     total = ((m*n)*(m*n-1))%MOD 
     #returning total feasible combinations.
     return (total +MOD - ret)%MOD 
+
+
+
+
+
+def isSafe(x,y,n,mat):
+    #Check if the current cell is out of bounds or is blocked (contains a 0)
+    if (x<0 or y<0 or x>n-1 or y>n-1 or mat[x][y]==0):
+        return False
+    return True
+
+class Solution:
+    def ShortestDistance(self, mat):
+        #Create a 2D array to store the shortest distance matrix
+        self.res = [[0 for i in range(len(mat))] for i in range(len(mat))]
+        n = len(mat)
+        
+        #If the starting cell is blocked, return -1
+        if mat[0][0]==0 and n!=1:
+            return [[-1]]
+        
+        def path(m,i,j,pathh):
+            #If we have reached the destination, mark it in the shortest distance matrix and return True
+            if (i==n-1 and j==n-1):
+                self.res[i][j]=1
+                return True
+                
+            #Check if the current cell is safe to move to
+            if isSafe(i,j,n,mat):
+                #Mark the current cell as visited in the shortest distance matrix
+                self.res[i][j]=1
+
+                #Try all possible moves from the current cell
+                for x in range(1,m[i][j]+1):
+                    #Move right
+                    if path(m,i,j+x,pathh):
+                        return True
+
+                    #Move down
+                    if path(m,i+x,j,pathh):
+                        return True
+
+                #If none of the moves leads to the destination, mark the current cell as unvisited and return False
+                self.res[i][j]=0
+                return False
+            return False
+            
+        #Call the path() function to find the shortest distance matrix
+        path(mat,0,0,"")
+        return self.res
+
+
+
+
+
+class Solution:
+    def sumUtil(self,a,n,s,result,temp,index):
+        
+        #returning if conditions are out of bound. 
+        if(index>=n or s<0): 
+            return
+    
+        #pushing the combination in result if the sum becomes equal to 0.
+        if(s==0): 
+            result.append(temp[:])
+            return
+        
+        #pushing to temp for possible answer.
+        temp.append(a[index])
+        
+        #calling function recursively for further inclusions.
+        self.sumUtil(a,n,s-temp[-1],result,temp,index) 
+        
+        #backtracking to remove already present number in combination
+        #and provide space for further additions and possible answers.
+        temp.pop() 
+        
+        #calling function recursively to move to next index as all possible
+        #combination for current index have been done.
+        self.sumUtil(a,n,s,result,temp,index+1) 
+    
+    
+    #Function to return a list of indexes denoting the required 
+    #combinations whose sum is equal to given number.
+    def combinationalSum(self,a,s):
+        
+        #putting in set and removing duplicates from array a.
+        a=set(a) 
+        a=list(a)
+    
+        #sorting a to maintain order.
+        a.sort() 
+        result = []
+        self.sumUtil(a,len(a),s,result,[],0) 
+        
+        #returning the result.
+        return result 
