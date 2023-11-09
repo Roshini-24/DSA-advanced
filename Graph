@@ -410,3 +410,28 @@ class Solution:
         return False
 
 
+
+
+
+    #Function to return list containing vertices in Topological order.
+    def topoSort(self, V, adj):
+        indegree = {}
+        res = []
+        for i in range(V):
+            indegree[i]=0
+        for i in range(V):
+            for j in adj[i]:
+                indegree[j]+=1
+        q = []
+        for i in indegree:
+            if indegree[i]==0:
+                q.append(i)
+        
+        while q:
+            l=q.pop(0)
+            res.append(l)
+            for i in adj[l]:
+                indegree[i]-=1
+                if indegree[i]==0:
+                    q.append(i)
+        return res
