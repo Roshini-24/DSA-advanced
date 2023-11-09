@@ -626,4 +626,43 @@ class Solution:
 
 
 
+ #Function to find the shortest distance of all the vertices
+    #from the source vertex S.
+    def dijkstra(self, V, adj, S):
+        heap=[]
+        heappush(heap,[0,S])
+        vis=[float("inf")]*V
+        vis[S]=0
+        while heap:
+            a=heappop(heap)
+            dis=a[0]
+            node=a[1]
+            for i in adj[node]:
+                d=i[1]
+                n=i[0]
+                if dis+d<vis[n]:
+                    vis[n]=d+dis
+                    heappush(heap,[vis[n],n])
+        return vis
+
+
+ #Function to find sum of weights of edges of the Minimum Spanning Tree.
+    def spanningTree(self, V, adj):
+           
+        #code here
+        myset = [False]*V
+        key = [float('inf')]*V
+        key[0] = 0
+        weight = 0
+        for _ in range(V):
+            u = -1
+            for i in range(V):
+                if myset[i] == False and(u ==-1 or key[u]>key[i]):
+                    u=i
+            myset[u] = True
+            weight+=key[u]
+            for v,w in adj[u]:
+                if myset[v] == False and key[v]>w:
+                    key[v] = w
+        return weight
 
