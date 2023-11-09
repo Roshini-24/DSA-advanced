@@ -1,1 +1,37 @@
+class Solution:
+    def printGraph(self, V : int, edges : List[List[int]]) -> List[List[int]]:
+        mp = {}
+        for i in range(V):
+            mp[i] = []
+        for i in edges:
+            mp[i[0]].append(i[1])
+            mp[i[1]].append(i[0])
+        res = []
+        for i in mp:
+            res.append(mp[i])
+        return res
+
+from typing import List
+from queue import Queue
+from collections import deque
+class Solution:
+    #Function to return Breadth First Traversal of given graph.
+    def bfsOfGraph(self, V: int, adj: List[List[int]]) -> List[int]:
+        visited = [False]*len(adj)
+        l=[]
+        q= deque()
+        q.append(0)
+        visited[0] = True
+    
+        while q:
+            s = q.popleft()
+            l.append(s)
+    
+            for u in adj[s]:
+                if visited[u] == False:
+                    q.append(u)
+                    visited[u] = True
+        return l
+
+
 
